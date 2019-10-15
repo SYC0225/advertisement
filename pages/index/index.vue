@@ -11,7 +11,7 @@
 				<view class='searchBox999'>
 					<image src='/static/icon-search.png' class='search999'></image>
 				</view>
-				<input class='input999' placeholder="输入关键词"></input>
+				<input class='input999' placeholder="输入相关地区"></input>
 			</view>
 			<!-- 导航栏 agents导航栏标题 -->
 			<navTab ref="navTab" :tabTitle="tabTitle" @changeTab='changeTab'></navTab>
@@ -23,7 +23,30 @@
 				<view :id="'top'+listIndex" style="width: 100%;height: 180upx;">边距盒子</view>
 				<view class='content'>
 					<view class='card' v-for="(item,index) in listItem" v-if="listItem.length > 0" :key="index">
-						{{item}}
+						<!-- 广告图片 -->
+						<view class="adverImage">
+							<image src="" mode=""></image>
+						</view>
+						<!-- 广告信息 -->
+						<view class="info">
+							<!-- 广告地址 -->
+							<view class="address">
+								<!-- 地址图标 -->
+								<image src="" mode=""></image>
+								<!-- 广告地址 -->
+								<view class="addr">
+									21111111111111111111111111
+								</view>
+							</view>
+							<!-- 广告价位 -->
+							<view class="price">
+								广告租金:￥2333
+							</view>
+							<!-- 广告租期(长租、短租、月租、年租) -->
+							<view class="tenancy">
+								广告租期类型:长租、短租、月租、年租
+							</view>
+						</view>
 					</view>
 				</view>
 				<view class='noCard' v-if="listItem.length===0">
@@ -48,10 +71,10 @@ export default {
 		return {
 			currentPage:'index',
 			toView:'',//回到顶部id
-			tabTitle:['选择一','选择二','选择三','选择四'], //导航栏格式 --导航栏组件
+			tabTitle:['固定广告位','移动广告位'], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
-			pages:[1,1,1,1], //第几个swiper的第几页
-			list: [[1, 2, 3, 4, 5, 6],['a', 'b', 'c', 'd', 'e', 'f'],[],['2233','4234','13144','324244']] //数据格式
+			pages:[1,1], //第几个swiper的第几页
+			list: [[1, 2, 3, 4, 5, 6],['a', 'b', 'c', 'd', 'e', 'f']] //数据格式
 		};
 	},
 	onLoad(e) {
@@ -76,10 +99,10 @@ export default {
 				var that = this
 				setTimeout(() => {
 					uni.hideLoading()
-					uni.showToast({
-						icon: 'none',
-						title: `请求第${that.currentTab + 1 }个导航栏的第${that.pages[that.currentTab]}页数据成功`
-					})
+					// uni.showToast({
+					// 	icon: 'none',
+					// 	title: `请求第${that.currentTab + 1 }个导航栏的第${that.pages[that.currentTab]}页数据成功`
+					// })
 					let newData = ['新数据1','新数据2','新数据3']
 					resolve(newData)
 				}, 1000)
@@ -121,10 +144,10 @@ export default {
 		},
 		isRefresh(){
 				setTimeout(() => {
-					uni.showToast({
-						icon: 'success',
-						title: '刷新成功'
-					})
+					// uni.showToast({
+					// 	icon: 'success',
+					// 	title: '刷新成功'
+					// })
 					this.$refs.refresh.endAfter() //刷新结束调用
 				}, 1000)
 		}
@@ -155,6 +178,71 @@ export default {
 		box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.10);
 		border-radius: 5px;
 		position: relative;
+		.adverImage{
+			width:50%;
+			height:90%;
+			position: absolute;
+			left:10px;
+			top: 8px;
+			border-radius: 5px;
+			border:1px solid #007AFF;
+			image{
+				width: 100%;
+				height: 100%;
+			}
+		}
+		.info{
+			width: 42%;
+			height: 90%;
+			top:15px;
+			right:10px;
+			position: absolute;
+			// border: 1px solid #007AFF;
+			overflow: hidden;
+			.address{
+				width:97%;
+				height: 40px;
+				position: relative;
+				top:0;
+				// border: 1px solid #4CD964;
+				border-radius: 5px;
+				box-shadow: 1px 2px 2px #808080;
+				image{
+					width:40upx;
+					height: 40upx;
+					position: absolute;
+					top: 0;
+					left: 0;
+					border:1px solid #DD524D;
+				}
+				.addr{
+					width:80%;
+					position: absolute;
+					top: 0;
+					left:45upx;
+					color: #333333;
+					font-size: 13px;
+					word-wrap:break-word;
+					word-break:normal;
+				}
+			}
+			.price{
+				position: relative;
+				width:100%;
+				top:10px;
+				// border: 1px solid #F0AD4E ;
+				border-radius: 5px;
+				box-shadow: 1px 2px 2px #808080;
+			}
+			.tenancy{
+				position: relative;
+				width:100%;
+				top: 25px;
+				// border: 1px solid #F0AD4E ;
+				border-radius: 5px;
+				box-shadow: 1px 2px 2px #808080;
+			}
+		}
 	}
 	
 	.noCard {
